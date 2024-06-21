@@ -1,0 +1,75 @@
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
+#import csv file
+df=pd.read_csv('D:\\Study\\Parul University\\PUStudy\\4th sem\\#Data Science With Python\\#Internship\\Task\\2\\01.Data Cleaning and Preprocessing.csv')
+df
+
+#which type of data
+type(df)
+
+#descriptive statistics function
+df.describe()
+
+#show first five row 
+df.head()
+
+#show last five row 
+df.tail()
+
+#summary of data
+df.info()
+
+#drop duplicate iteams
+df=df.drop_duplicates()
+df
+
+#identify missing values
+df.isnull()
+
+#sum of missing values per column
+df.isnull().sum()
+
+#sum of missing values across the entire DataFrame
+df.isnull().sum().sum()
+
+#identify non-missing values
+df.notnull()
+
+#fill missing values
+df2=df.fillna(value=0)
+df2
+
+#sum of missing values across the entire DataFrame
+df2.isnull().sum().sum()
+
+#forward fill
+df3=df.fillna(method='ffill')
+df3
+
+#backward fill
+df4=df.fillna(method='bfill')
+df4
+
+#detect the outliers
+df2.columns
+
+#drop perticular outliers
+df2.drop(['Observation'], axis=1,inplace=True)
+df2.columns
+
+#calculate the Interquartile Range(IQR).
+Q1=df2.quantile(0.25)
+Q3=df2.quantile(0.75)
+IQR=Q3-Q1
+print(IQR)
+
+#drop outliers from the dataframe
+df2=df2[-((df2<(Q1-1.5*IQR))|(df2>(Q3+1.5*IQR))).any(axis=1)]
+df2
+
+#descriptive statistics function
+df2.describe()
+
